@@ -1,21 +1,30 @@
 # libgtop11dotnet (aka PKCS11dotNetV2)
 
-This repository contains the source code for the libgtop11dotnet library.
-It is a [PKCS #11](https://en.wikipedia.org/wiki/PKCS_11) module for [Gemalto IDPrime .NET](http://www.gemalto.com/products/dotnet_card/index.html) smart cards.
+This repository contains the source code for the libgtop11dotnet library. It is a [PKCS #11](https://en.wikipedia.org/wiki/PKCS_11) module for [Gemalto IDPrime .NET](http://www.gemalto.com/products/dotnet_card/index.html) smart cards.
 
-This repository was created by importing the SVN repository from [smartcardservices.macosforge.org](https://svn.macosforge.org/repository/smartcardservices).
-That repository contains up to version 2.2.0.10 of the source code. Version 2.2.0.12 is available, but I've only been able to find it as a .tar.gz [on an unofficial website](https://www.nemid.nu/dk-da/support/aktiver_nemid/aktiver_nemid_paa_hardware/installer_driver/drivers/libgtop11dotnet_2.2.0.12.tar.gz).
-The code from that tarball is here as a single commit (tagged 2.2.0.12).
+This repository was forked from https://github.com/AbigailBuccaneer/libgtop11dotnet which was, in turn, created by importing the SVN repository from [smartcardservices.macosforge.org](https://svn.macosforge.org/repository/smartcardservices).
 
-If you have any more information about reputable sources off this source code, please file an issue!
+This fork includes updates to correct warnings for CentOS 7 targets as well as certain errors encourntered with building the software with GCC compilers greater than 4.8.5. The updates were inspired due to the discontinuation of the IDPrime .NET product (more information on which can be found [here](https://github.com/AbigailBuccaneer/libgtop11dotnet)) but the requiment to support the legacy cards in a Linux enviornment.
 
 ## Building
 
 This information is based on [this invaluable guide](https://stomp.colorado.edu/blog/blog/2014/06/02/on-building-the-gemalto-net-pkcs-11-module-for-linux/):
 
+### CentOS 7 / RHEL 7
+```
+sudo yum install git automake autoconf zlib-devel pcsclite-devel boost-devel
+git clone https://github.com/nealepetrillo/libgtop11dotnet.git
+cd libgtop11dotnet
+./autogen.sh
+./configure --enable-system-boost
+make
+sudo make install
+```
+
+### Debian 10 / Ubuntu 18
 ```
 sudo apt install git automake autoconf pkg-config zlib1g-dev libpcsclite1 libpcsclite-dev libboost-all-dev 
-git clone https://github.com/AbigailBuccaneer/libgtop11dotnet.git
+git clone https://github.com/nealepetrillo/libgtop11dotnet.git
 cd libgtop11dotnet
 ./autogen.sh
 ./configure --enable-system-boost
