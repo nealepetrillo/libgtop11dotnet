@@ -156,7 +156,7 @@ public:
 
     inline void containerDelete( const unsigned char& a_ucContainerIndex ) { m_Files.containerDelete( a_ucContainerIndex ); }
 
-    inline void containerCreate( unsigned char& a_ucContainerIndex, const bool& a_bKeyImport, unsigned char& a_ucKeySpec, Marshaller::u1Array* a_pPublicKeyModulus, const int& a_KeySize, Marshaller::u1Array* a_pKeyValue ) { m_Files.containerCreate( a_ucContainerIndex, a_bKeyImport, a_ucKeySpec, a_pPublicKeyModulus, a_KeySize, a_pKeyValue ); }
+    inline void containerCreate( unsigned char& a_ucContainerIndex, const bool& a_bKeyImport, unsigned char& a_ucKeySpec, const int& a_KeySize, Marshaller::u1Array* a_pKeyValue ) { m_Files.containerCreate( a_ucContainerIndex, a_bKeyImport, a_ucKeySpec, a_KeySize, a_pKeyValue ); }
 
     inline unsigned char containerCount( void ) { return m_Files.containerCount( ); }
 

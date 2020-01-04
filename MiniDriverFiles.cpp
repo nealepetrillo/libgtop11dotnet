@@ -93,7 +93,7 @@ void MiniDriverFiles::hasChanged( MiniDriverCardCacheFile::ChangeType& a_Pins, M
 
 /* Write the incoming data into the incoming pointed path into the smartcard and then into the cache
 */
-void MiniDriverFiles::writeFile( const std::string& a_stDirectory, const std::string& a_stFile, Marshaller::u1Array* a_pData, const bool& a_bAddToCache, const bool& a_bUpdateContainerCounter ) {
+void MiniDriverFiles::writeFile( const std::string& a_stDirectory, const std::string& a_stFile, Marshaller::u1Array* a_pData, const bool& a_bUpdateContainerCounter ) {
 
     Log::begin( "MiniDriverFiles::writeFile" );
     Log::log( "MiniDriverFiles::writeFile - Directory <%s> - File <%s>", a_stDirectory.c_str( ), a_stFile.c_str( ) );

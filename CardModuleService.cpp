@@ -453,7 +453,7 @@ void CardModuleService::manageGarbageCollector( void ) {
         }
 
         try {
-            int i = getMemory( );
+            unsigned int i = getMemory( );
 
             //Log::log( "CardModuleService::manageGarbageCollector - memory <%ld>", i );
 

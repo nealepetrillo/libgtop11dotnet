@@ -66,7 +66,7 @@ public:
 
     void containerRead( void );
 
-    void containerCreate( unsigned char&, const bool&, unsigned char&, Marshaller::u1Array*, const int&, Marshaller::u1Array* );
+    void containerCreate( unsigned char&, const bool&, unsigned char&, const int&, Marshaller::u1Array* );
 
     void containerSetDefault( const unsigned char&, const bool& );
 

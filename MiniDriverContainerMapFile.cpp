@@ -286,7 +286,7 @@ void MiniDriverContainerMapFile::write( void ) {
     }
 
     // Write the new CMap file
-    m_MiniDriverFiles->writeFile( stMscpDirectory, stCMapFile, p, true, true );
+    m_MiniDriverFiles->writeFile( stMscpDirectory, stCMapFile, p, true );
 
     //print( );
     t.stop( "MiniDriverContainerMapFile::write" );
@@ -351,7 +351,7 @@ void MiniDriverContainerMapFile::containerDelete( const unsigned char& a_ucConta
 
 /*
 */
-void MiniDriverContainerMapFile::containerCreate( unsigned char& a_ucContainerIndex, const bool& a_bKeyImport, unsigned char& a_ucKeySpec, Marshaller::u1Array* a_pKeyModulus, const int& a_KeySize, Marshaller::u1Array* a_pKeyValue ) {
+void MiniDriverContainerMapFile::containerCreate( unsigned char& a_ucContainerIndex, const bool& a_bKeyImport, unsigned char& a_ucKeySpec, const int& a_KeySize, Marshaller::u1Array* a_pKeyValue ) {
 
     Log::begin( "MiniDriverContainerMapFile::containerCreate" );
     Timer t;

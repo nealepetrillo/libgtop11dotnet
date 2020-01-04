@@ -213,11 +213,11 @@ private:
 
     void createPublicKeyFromPKCS11ObjectFile( const std::string& );
 
-    void createPublicKeyFromMiniDriverFile( const std::string&, const unsigned char& a_ucIndex, const unsigned int& a_ucKeySpec, Marshaller::u1Array*, Marshaller::u1Array* );
+    void createPublicKeyFromMiniDriverFile( const unsigned char& a_ucIndex, const unsigned int& a_ucKeySpec, Marshaller::u1Array*, Marshaller::u1Array* );
 
     void createPrivateKeyFromPKCS11ObjectFile( const std::string& );
 
-    void createPrivateKeyFromMiniDriverFile( const std::string&, const unsigned char&, const unsigned int&, Marshaller::u1Array*, Marshaller::u1Array* );
+    void createPrivateKeyFromMiniDriverFile( const unsigned char&, const unsigned int&, Marshaller::u1Array*, Marshaller::u1Array* );
 
     bool isPrivate( const CK_OBJECT_HANDLE& a_ObjectHandle ) { return ( ( ( a_ObjectHandle >> 8 ) & 0x000000FF ) >= 0x00000010 ); }
 
@@ -289,7 +289,7 @@ private:
 
     void setContainerIndexToCertificate( boost::shared_ptr< Marshaller::u1Array>&, const unsigned char&, const unsigned char& );
 
-    void setContainerIndexToKeyPublic( boost::shared_ptr< Marshaller::u1Array>&, const unsigned char&, const unsigned char& );
+    void setContainerIndexToKeyPublic( boost::shared_ptr< Marshaller::u1Array>&, const unsigned char& );
 
     void computeObjectNameData( std::string&, /*const*/ StorageObject* );
 

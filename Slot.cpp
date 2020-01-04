@@ -681,13 +681,6 @@ void Slot::login( const CK_SESSION_HANDLE& a_hSession, const CK_USER_TYPE& a_Use
         throw PKCS11Exception( CKR_SESSION_READ_ONLY_EXISTS );
     }
 
-    CK_ULONG ulPinLen = a_ulPinLen;
-
-    if( !a_pPin ) {
-
-        ulPinLen = 0;
-    }
-
     Marshaller::u1Array pPin( a_ulPinLen );
 
     pPin.SetBuffer( a_pPin );

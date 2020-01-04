@@ -1047,9 +1047,7 @@ void DeviceMonitor::monitorReaderEvent( void ) {
                 Log::log( "DeviceMonitor::monitorReaderEvent - SCardGetStatusChange cancelled <%#02x>", rv );
                 break;
 
-            }
-            else if ( (SCARD_E_SYSTEM_CANCELLED == rv) || (SCARD_E_NO_SERVICE == rv))
-            {
+            } else if ((SCARD_E_SYSTEM_CANCELLED == rv) || (SCARD_E_NO_SERVICE == rv)) {
                 boost::mutex::scoped_lock lock( io_mutex );
                 Log::log( "DeviceMonitor::monitorReaderEvent - SCardGetStatusChange failed <%#02x>. Removing all tokens", rv );
                 BOOST_FOREACH( SCARD_READERSTATE& rs, aReaderStates ) {

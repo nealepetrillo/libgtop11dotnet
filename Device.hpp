@@ -179,7 +179,7 @@ public:
 
 
     // Container operations
-    inline void containerCreate( unsigned char& a_ucContainerIndex, const bool& a_bKeyImport, unsigned char& a_ucKeySpec, Marshaller::u1Array* a_pPublicKeyModulus, const int& a_KeySize, Marshaller::u1Array* a_pKeyValue ) { if( m_MiniDriver.get( ) ) m_MiniDriver->containerCreate( a_ucContainerIndex, a_bKeyImport, a_ucKeySpec, a_pPublicKeyModulus, a_KeySize, a_pKeyValue ); else throw MiniDriverException( SCARD_E_NO_SMARTCARD ); }
+    inline void containerCreate( unsigned char& a_ucContainerIndex, const bool& a_bKeyImport, unsigned char& a_ucKeySpec, const int& a_KeySize, Marshaller::u1Array* a_pKeyValue ) { if( m_MiniDriver.get( ) ) m_MiniDriver->containerCreate( a_ucContainerIndex, a_bKeyImport, a_ucKeySpec, a_KeySize, a_pKeyValue ); else throw MiniDriverException( SCARD_E_NO_SMARTCARD ); }
 
     inline void containerDelete( const unsigned char& a_ucContainerIndex ) { if( m_MiniDriver.get( ) ) m_MiniDriver->containerDelete( a_ucContainerIndex ); else throw MiniDriverException( SCARD_E_NO_SMARTCARD ); }
 

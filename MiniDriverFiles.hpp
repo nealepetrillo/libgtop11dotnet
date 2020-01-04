@@ -57,7 +57,7 @@ public:
 
     MiniDriverFiles( );
 
-    inline CardModuleService* const getCardModuleService( void ) { return m_CardModule; }
+    inline CardModuleService* getCardModuleService( void ) { return m_CardModule; }
 
     inline void setCardModuleService( CardModuleService* a_pCardModule ) { m_CardModule = a_pCardModule; m_CardCacheFile.setCardModuleService( m_CardModule ); }
 
@@ -65,7 +65,7 @@ public:
     // Files operations
     void certificateDelete( unsigned char& );
 
-    void writeFile( const std::string&, const std::string&, Marshaller::u1Array*, const bool& a_bAddToCache = true, const bool& a_bUpdateContainerCounter = false );
+    void writeFile( const std::string&, const std::string&, Marshaller::u1Array*, const bool& a_bUpdateContainerCounter = false );
 
     void deleteFile( const std::string&, const std::string& );
 
@@ -93,7 +93,7 @@ public:
 
     inline void containerSearch( unsigned char& a_ucContainerIndex ) { m_ContainerMapFile.containerSearch( a_ucContainerIndex ); }
 
-    inline void containerCreate( unsigned char& a_ucContainerIndex, const bool& a_bKeyImport, unsigned char& a_ucKeySpec, Marshaller::u1Array* a_pPublicKeyModulus, const int& a_KeySize, Marshaller::u1Array* a_pKeyValue ) { m_ContainerMapFile.containerCreate( a_ucContainerIndex, a_bKeyImport, a_ucKeySpec, a_pPublicKeyModulus, a_KeySize, a_pKeyValue ); }
+    inline void containerCreate( unsigned char& a_ucContainerIndex, const bool& a_bKeyImport, unsigned char& a_ucKeySpec, const int& a_KeySize, Marshaller::u1Array* a_pKeyValue ) { m_ContainerMapFile.containerCreate( a_ucContainerIndex, a_bKeyImport, a_ucKeySpec, a_KeySize, a_pKeyValue ); }
 
     void containerDelete( const unsigned char& a_ucContainerIndex ) { m_ContainerMapFile.containerDelete( a_ucContainerIndex ); }
 

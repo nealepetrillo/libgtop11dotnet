@@ -1731,7 +1731,7 @@ void Token::addObjectPrivateKey( RSAPrivateKeyObject* a_pObject, CK_OBJECT_HANDL
 
     try {
 
-        m_Device->containerCreate( a_pObject->m_ucContainerIndex, true, a_pObject->m_ucKeySpec, a_pObject->m_pModulus.get( ), ( uiModulusLength * 8 ), &keyValue );
+        m_Device->containerCreate( a_pObject->m_ucContainerIndex, true, a_pObject->m_ucKeySpec, ( uiModulusLength * 8 ), &keyValue );
 
     } catch( MiniDriverException& x ) {
 
@@ -2163,7 +2163,7 @@ void Token::generateKeyPair( Pkcs11ObjectKeyPublicRSA* a_pObjectPublicKeyRSA, RS
 
     try {
 
-        m_Device->containerCreate( ucContainerIndex, false, ucKeySpec, a_pObjectPublicKeyRSA->m_pModulus.get( ), a_pObjectPublicKeyRSA->m_ulModulusBits, 0 );
+        m_Device->containerCreate( ucContainerIndex, false, ucKeySpec, a_pObjectPublicKeyRSA->m_ulModulusBits, 0 );
 
     } catch( MiniDriverException& x ) {
 
@@ -4067,7 +4067,7 @@ void Token::synchronizePublicCertificateAndKeyObjects( void ) {
 
                         Log::log( "**************************************************** CASE #3 [P11 pub key exists but no read possible] - <%s>", stObjectPKCS11.c_str( ) );
 
-                        createPublicKeyFromMiniDriverFile( stObjectPKCS11, ucContainerIndex, ucKeySpec, pPublicKeyExponent.get( ), pPublicKeyModulus.get( ) );
+                        createPublicKeyFromMiniDriverFile( ucContainerIndex, ucKeySpec, pPublicKeyExponent.get( ), pPublicKeyModulus.get( ) );
 
                         //stObjectPKCS11 = g_stPrefixPublicObject + std::string( szUSER_SIGNATURE_CERT_PREFIX ) + stContainerIndex;
                         //m_ObjectsToDelete.push_back( stObjectPKCS11 );
@@ -4077,7 +4077,7 @@ void Token::synchronizePublicCertificateAndKeyObjects( void ) {
 
                     // The PKCS11 public key object does not exist
                     // Create the PKCS11 object from the MSCP key container
-                    createPublicKeyFromMiniDriverFile( stObjectPKCS11, ucContainerIndex, ucKeySpec, pPublicKeyExponent.get( ), pPublicKeyModulus.get( ) );
+                    createPublicKeyFromMiniDriverFile( ucContainerIndex, ucKeySpec, pPublicKeyExponent.get( ), pPublicKeyModulus.get( ) );
                 }
 
             } else { 
@@ -4233,14 +4233,14 @@ void Token::synchronizePrivateKeyObjects( void ) {
                     } catch( ... ) {
 
                         // Create the PKCS11 object from the MSCP key container
-                        createPrivateKeyFromMiniDriverFile( stKeyFileName, ucContainerIndex, ucKeySpec, pPublicKeyExponent.get( ), pPublicKeyModulus.get( ) );
+                        createPrivateKeyFromMiniDriverFile( ucContainerIndex, ucKeySpec, pPublicKeyExponent.get( ), pPublicKeyModulus.get( ) );
                     }
 
                 } else { 
 
                     // The PKCS11 private key object does not exist
                     // Create the PKCS11 object from the MSCP key container
-                    createPrivateKeyFromMiniDriverFile( stKeyFileName, ucContainerIndex, ucKeySpec, pPublicKeyExponent.get( ), pPublicKeyModulus.get( ) );
+                    createPrivateKeyFromMiniDriverFile( ucContainerIndex, ucKeySpec, pPublicKeyExponent.get( ), pPublicKeyModulus.get( ) );
                 }
 
             } else { 
@@ -4447,7 +4447,7 @@ void Token::createPublicKeyFromPKCS11ObjectFile( const std::string& a_PKCS11Publ
 
 /* Create the PKCS11 public key object associated to the MiniDriver container
 */
-void Token::createPublicKeyFromMiniDriverFile( const std::string& a_stKeyFileName, const unsigned char& a_ucIndex, const unsigned int& a_ucKeySpec, Marshaller::u1Array* a_pPublicKeyExponent, Marshaller::u1Array* a_pPublicKeyModulus ) {
+void Token::createPublicKeyFromMiniDriverFile( const unsigned char& a_ucIndex, const unsigned int& a_ucKeySpec, Marshaller::u1Array* a_pPublicKeyExponent, Marshaller::u1Array* a_pPublicKeyModulus ) {
 
     Log::begin( "Token::createPublicKeyFromMiniDriverFile" );
     Timer t;
@@ -4576,7 +4576,7 @@ void Token::createPrivateKeyFromPKCS11ObjectFile( const std::string& a_PKCS11Pri
 
         setContainerIndexToCertificate( o->m_pModulus, o->m_ucContainerIndex, o->m_ucKeySpec );
 
-        setContainerIndexToKeyPublic( o->m_pModulus, o->m_ucContainerIndex, o->m_ucKeySpec );
+        setContainerIndexToKeyPublic( o->m_pModulus, o->m_ucContainerIndex );
 
         registerStorageObject( o );
 
@@ -4593,7 +4593,7 @@ void Token::createPrivateKeyFromPKCS11ObjectFile( const std::string& a_PKCS11Pri
 
 /* Create the PKCS11 public key object associated to the MiniDriver container
 */
-void Token::createPrivateKeyFromMiniDriverFile( const std::string& a_stKeyFileName, const unsigned char& a_ucIndex, const unsigned int& a_ucKeySpec, Marshaller::u1Array* a_pPublicKeyExponent, Marshaller::u1Array* a_pPublicKeyModulus ) {
+void Token::createPrivateKeyFromMiniDriverFile( const unsigned char& a_ucIndex, const unsigned int& a_ucKeySpec, Marshaller::u1Array* a_pPublicKeyExponent, Marshaller::u1Array* a_pPublicKeyModulus ) {
 
     Log::begin( "Token::createPrivateKeyFromMiniDriverFile" );
     Timer t;
@@ -5359,7 +5359,7 @@ void Token::setDefaultAttributesKeyPrivate( RSAPrivateKeyObject* a_pObject ) {
 
         setContainerIndexToCertificate( a_pObject->m_pModulus, a_pObject->m_ucContainerIndex, a_pObject->m_ucKeySpec );
 
-        setContainerIndexToKeyPublic( a_pObject->m_pModulus, a_pObject->m_ucContainerIndex, a_pObject->m_ucKeySpec );
+        setContainerIndexToKeyPublic( a_pObject->m_pModulus, a_pObject->m_ucContainerIndex );
 
         if( !a_pObject->m_pLabel ) {
 
@@ -5435,7 +5435,7 @@ void Token::setContainerIndexToCertificate( boost::shared_ptr< Marshaller::u1Arr
 
 /* Search for an associated public key created before the private key to rename it properly using the index of the created container
 */
-void Token::setContainerIndexToKeyPublic( boost::shared_ptr< Marshaller::u1Array>& a_pModulus, const unsigned char& a_ucContainerIndex, const unsigned char& a_ucKeySpec ) {
+void Token::setContainerIndexToKeyPublic( boost::shared_ptr< Marshaller::u1Array>& a_pModulus, const unsigned char& a_ucContainerIndex ) {
 
     Log::begin( "Token::setContainerIndexToKeyPublic" );
     Timer t;
